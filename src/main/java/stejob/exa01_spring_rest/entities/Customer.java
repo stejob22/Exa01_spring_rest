@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Customer {
     @Id
     @EqualsAndHashCode.Exclude
-    private long id;
+    private Long id;
     private String firstname;
     private String lastname;
     private String email;
