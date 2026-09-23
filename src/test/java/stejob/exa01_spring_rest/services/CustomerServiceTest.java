@@ -1,7 +1,7 @@
 package stejob.exa01_spring_rest.services;
 
 import org.junit.jupiter.api.Test;
-import stejob.exa01_spring_rest.entities.Customer;
+import stejob.exa01_spring_rest.pojos.entities.Customer;
 import stejob.exa01_spring_rest.repositories.CustomerRepository;
 
 import java.time.LocalDate;

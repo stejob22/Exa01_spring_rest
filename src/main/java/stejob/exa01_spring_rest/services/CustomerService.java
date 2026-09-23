@@ -1,10 +1,9 @@
 package stejob.exa01_spring_rest.services;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import stejob.exa01_spring_rest.entities.Customer;
+import stejob.exa01_spring_rest.pojos.entities.Customer;
 import stejob.exa01_spring_rest.repositories.CustomerRepository;
 
 import java.util.List;

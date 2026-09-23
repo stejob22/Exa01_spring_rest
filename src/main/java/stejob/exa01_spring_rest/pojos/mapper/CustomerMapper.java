@@ -1,8 +1,8 @@
-package stejob.exa01_spring_rest.mapper;
+package stejob.exa01_spring_rest.pojos.mapper;
 
 import org.mapstruct.Mapper;
-import stejob.exa01_spring_rest.dto.CustomerDto;
-import stejob.exa01_spring_rest.entities.Customer;
+import stejob.exa01_spring_rest.pojos.dto.CustomerDto;
+import stejob.exa01_spring_rest.pojos.entities.Customer;
 
 
 @Mapper(componentModel = "spring")

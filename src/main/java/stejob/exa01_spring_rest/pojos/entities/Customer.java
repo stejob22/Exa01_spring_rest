@@ -1,4 +1,4 @@
-package stejob.exa01_spring_rest.entities;
+package stejob.exa01_spring_rest.pojos.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

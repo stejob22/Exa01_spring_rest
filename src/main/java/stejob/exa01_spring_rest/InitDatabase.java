@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import stejob.exa01_spring_rest.entities.Customer;
+import stejob.exa01_spring_rest.pojos.entities.Customer;
 import stejob.exa01_spring_rest.repositories.CustomerRepository;
-import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.io.InputStream;

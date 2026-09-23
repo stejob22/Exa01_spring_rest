@@ -1,4 +1,4 @@
-package stejob.exa01_spring_rest.dto;
+package stejob.exa01_spring_rest.pojos.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

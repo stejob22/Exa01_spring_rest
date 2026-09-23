@@ -3,11 +3,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import stejob.exa01_spring_rest.entities.Customer;
+import stejob.exa01_spring_rest.pojos.entities.Customer;
 import stejob.exa01_spring_rest.repositories.CustomerRepository;
 import stejob.exa01_spring_rest.services.CustomerService;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
