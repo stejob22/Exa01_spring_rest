@@ -1,9 +1,10 @@
 package stejob.exa01_spring_rest.services;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import stejob.exa01_spring_rest.pojos.dto.CustomerDto;
 import stejob.exa01_spring_rest.pojos.entities.Customer;
+import stejob.exa01_spring_rest.pojos.mapper.CustomerMapper;
 import stejob.exa01_spring_rest.repositories.CustomerRepository;
 
 import java.util.List;
@@ -11,36 +12,41 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@AllArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
 
-    public List<Customer> getAll() {
-        return customerRepository.findAll();
+    public List<CustomerDto> getAll() {
+        List<Customer> customer =  customerRepository.findAll();
+        return customerMapper.toDtoList(customer);
+
     }
 
-    public Optional<Customer> getById(Long id) {
-        return customerRepository.findById(id);
+    public Optional<CustomerDto> getById(Long id) {
+        return customerRepository.findById(id).map(customerMapper::toDto);
     }
 
-    public Customer save(Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerDto save(CustomerDto customerDto) {
+        Customer customer = customerMapper.toEntity(customerDto);
+        Long maxId = customerRepository.findMaxID();
+        customer.setId(maxId == null ? 1 : maxId + 1);
+        return customerMapper.toDto(customerRepository.save(customer));
     }
 
-    public Optional<Customer> deleteById(Long id) {
+    public Optional<CustomerDto> deleteById(Long id) {
         return customerRepository.findById(id).map(customer -> {
             customerRepository.delete(customer);
-            return customer;
+            return customerMapper.toDto(customer);
         });
     }
 
-    public Optional<Customer> update(Long id, Customer customer) {
+    public Optional<CustomerDto> update(Long id, CustomerDto customerDto) {
         return customerRepository.findById(id).map(existingCustomer -> {
-            existingCustomer.setFirstname(customer.getFirstname());
-            existingCustomer.setLastname(customer.getLastname());
-            existingCustomer.setEmail(customer.getEmail());
-            return customerRepository.save(existingCustomer);
+            existingCustomer.setFirstname(customerDto.firstname());
+            existingCustomer.setLastname(customerDto.lastname());
+            existingCustomer.setBirthday(customerDto.birthday());
+            return customerMapper.toDto(customerRepository.save(existingCustomer));
         });
     }
 }

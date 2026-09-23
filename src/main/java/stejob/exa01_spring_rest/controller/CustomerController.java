@@ -3,12 +3,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import stejob.exa01_spring_rest.pojos.entities.Customer;
-import stejob.exa01_spring_rest.repositories.CustomerRepository;
+import stejob.exa01_spring_rest.pojos.dto.CustomerDto;
 import stejob.exa01_spring_rest.services.CustomerService;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -17,43 +15,29 @@ import java.util.Optional;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final CustomerRepository customerRepository;
 
     @GetMapping
-    public List<Customer> getAll() {
+    public List<CustomerDto> getAll() {
         return customerService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Customer> getById(@PathVariable Long id) {
+    public ResponseEntity<CustomerDto> getById(@PathVariable Long id) {
         return ResponseEntity.of(customerService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Customer> create(@RequestBody Customer customer) {
-        Long newId = customerRepository.findMaxID() + 1;
-        customer.setId(newId);
-        customerRepository.save(customer);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(customer);
-//        return ResponseEntity.ok(customerService.save(customer));
+    public ResponseEntity<CustomerDto> create(@RequestBody CustomerDto customerDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.save(customerDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer customer) {
-        Optional<Customer> customerOpt = customerRepository.findById(id);
-        if (customerOpt.isPresent()) {
-            customer.setId(id);
-            customerRepository.save(customer);
-            return ResponseEntity.ok(customer);
-        }
-        return ResponseEntity.of(customerService.update(id, customer));
+    public ResponseEntity<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto customerDto) {
+        return ResponseEntity.of(customerService.update(id, customerDto));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Customer> deleteById(@PathVariable Long id) {
+    public ResponseEntity<CustomerDto> deleteById(@PathVariable Long id) {
         return ResponseEntity.of(customerService.deleteById(id));
     }
-
-
 }
