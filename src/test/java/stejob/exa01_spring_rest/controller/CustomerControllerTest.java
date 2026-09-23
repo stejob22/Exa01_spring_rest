@@ -98,6 +98,17 @@ class CustomerControllerTest {
 
 
     @Test
+    void testGetMaxId() throws Exception {
+        when(customerService.getMaxId()).thenReturn(Optional.of(new Customer(
+                1000L, "Max", "Mustermann", "max@test.at", "Male", LocalDate.of(2005, 9, 18))));
+
+        mockMvc.perform(get("/api/custommer/maxid"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1000));
+    }
+
+
+    @Test
     void testPut() throws Exception {
         when(customerService.update(eq(1L), any(Customer.class)))
                 .thenReturn(Optional.of(new Customer(
