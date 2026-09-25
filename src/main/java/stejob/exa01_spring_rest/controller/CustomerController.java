@@ -10,8 +10,6 @@ import stejob.exa01_spring_rest.services.CustomerService;
 import java.time.LocalDate;
 import java.util.List;
 
-
-@RestController
 @RequestMapping("/api/custommer")
 @RequiredArgsConstructor
 public class CustomerController {
@@ -28,26 +26,20 @@ public class CustomerController {
         return ResponseEntity.of(customerService.getById(id));
     }
 
+    @RestController
+
     @PostMapping
     public ResponseEntity<CustomerDto> create(@RequestBody CustomerDto customerDto) {
-        checkAge(customerDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(customerService.save(customerDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDto> update(@PathVariable Long id, @RequestBody CustomerDto customerDto) {
-        checkAge(customerDto);
         return ResponseEntity.of(customerService.update(id, customerDto));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<CustomerDto> deleteById(@PathVariable Long id) {
         return ResponseEntity.of(customerService.deleteById(id));
-    }
-
-    private static void checkAge(CustomerDto dto) {
-        if (dto.birthday() == null || dto.birthday().isAfter(LocalDate.now().minusYears(12))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Too young");
-        }
     }
 }
